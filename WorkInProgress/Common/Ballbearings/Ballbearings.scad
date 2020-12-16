@@ -1,7 +1,7 @@
-use <../Shapes/shapes.scad>
+include <Common/Util/Shapes.scad>
 
 
-/*
+
 //example
 intersection()
 {
@@ -19,14 +19,15 @@ intersection()
     }
 }
 //BB_623();
-*/
 
+/*
 difference()
 {
     translate([0,3.75,0])
-    cube([15,7.5,20], center=true);
+    Box([15,7.5,20]);
     LM6UU_Cutout(fitting=0.2);
 }
+*/
 
 //Linear_Ballbearing_Cutout(outer_diameter=12, length=20, groove_depth=0.5, groove_width=1.1, groove_dist=15, fitting=0.2);
 
@@ -163,8 +164,8 @@ module Linear_Ballbearing(inner_diameter, outer_diameter, length, groove_depth, 
 {
     difference()
     {
-        cylinder(d=outer_diameter, h=length, center=true, $fn=64);
-        cylinder(d=inner_diameter, h=length+2, center=true, $fn=64);
+        Cylinder(diameter=outer_diameter, height=length, angular_resolution=64);
+        Cylinder(diameter=inner_diameter, height=length+2, angular_resolution=64);
         translate([0,0,-groove_dist/2+groove_width/2])
         Flat_Ring(   inner_diameter=outer_diameter-2*groove_depth,
                     outer_diameter=outer_diameter+1,
@@ -186,19 +187,17 @@ module Linear_Ballbearing_Cutout(outer_diameter, length, groove_depth, groove_wi
 {
     difference()
     {
-        cylinder(d=outer_diameter+fitting, h=length+2*fitting, center=true, $fn=64);
+        Cylinder(diameter=outer_diameter+fitting, height=length+2*fitting, angular_resolution=64);
         translate([0,0,-groove_dist/2+groove_width/2])
-        Flat_Ring(   inner_diameter=outer_diameter-2*groove_depth+2*fitting,
+        Flat_Ring(  inner_diameter=outer_diameter-2*groove_depth+2*fitting,
                     outer_diameter=outer_diameter+2*fitting+1,
                     height=groove_width-2*fitting,
-                    center=true,
-                    $fn=64                                          );
+                    angular_resolution=64                                           );
         translate([0,0,groove_dist/2-groove_width/2])
-        Flat_Ring(   inner_diameter=outer_diameter-2*groove_depth+2*fitting,
+        Flat_Ring(  inner_diameter=outer_diameter-2*groove_depth+2*fitting,
                     outer_diameter=outer_diameter+2*fitting+1,
                     height=groove_width-2*fitting,
-                    center=true,
-                    $fn=64                                          );
+                    angular_resolution=64                                           );
         
     }
 }
@@ -207,8 +206,8 @@ module Ballbearing(inner_diameter, outer_diameter, width)
 {
     difference()
     {
-        cylinder(d=outer_diameter, h=width, center=true, $fn=64);
-        cylinder(d=inner_diameter, h=width+2, center=true, $fn=64);
+        Cylinder(diameter=outer_diameter, height=width, angular_resolution=64);
+        Cylinder(diameter=inner_diameter, height=width+2, angular_resolution=64);
     }
 }
 
@@ -216,20 +215,27 @@ module Ballbearing_Cutout(inner_diameter, outer_diameter, width, center_diameter
 {
     difference()
     {
-        cylinder(d=outer_diameter+2*playroom+2*fitting, h=width+2*playroom+2*fitting, center=true, $fn=64);
-        
+        Cylinder(diameter=outer_diameter+2*playroom+2*fitting, height=width+2*playroom+2*fitting, angular_resolution=64);
         
         rotate([180,0,0])
         translate([0,0,-2*playroom-0.5*width-fitting])
-        cylinder(d1=center_diameter+4*playroom, d2=center_diameter, h=2*playroom, $fn=64);
+        Cone(   bottom_diameter=center_diameter+4*playroom,
+                top_diameter=center_diameter,
+                height=2*playroom,
+                t_z="pos",
+                angular_resolution=64);
         
         translate([0,0,-2*playroom-0.5*width-fitting])
-        cylinder(d1=center_diameter+4*playroom, d2=center_diameter, h=2*playroom, $fn=64);
+        Cone(   bottom_diameter=center_diameter+4*playroom,
+                top_diameter=center_diameter,
+                height=2*playroom,
+                t_z="pos",
+                angular_resolution=64);
         
         
         if(!axel_cutout)
         {
-            cylinder(d=inner_diameter-2*fitting, h=outer_diameter, center=true, $fn=64);
+            Cylinder(diameter=inner_diameter-2*fitting, height=outer_diameter, angular_resolution=64);
         }
         
     }
