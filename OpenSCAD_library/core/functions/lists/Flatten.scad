@@ -1,0 +1,1 @@
+function Flatten(list) = [ for (i = list, v = i) v ];
