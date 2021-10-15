@@ -1,37 +1,31 @@
-include <core/Core.scad>
+use <parts/Parts_Functions.scad>
 use <parts/sourced/fasteners/bolts/Bolts.scad>
-use <parts/sourced/fasteners/Nuts/Nuts.scad>
-use <parts/sourced/fasteners/washers/Washers.scad>
-use <generators/sourced/fasteners/washers/Washer.scad>
+//use <parts/sourced/actuators/Actuators.scad>
 
 function Fastener_Parts() = Flatten
 (
     [
-        Extend_Type("Fastener", Bolt_Parts()),
-        Extend_Type("Fastener", Washer_Parts()),
-        Extend_Type("Fastener", Nut_Parts()),
-        //Extend_Type("Fastener", Inserts())
+        Extend_Part_Type("Fastener", Bolt_Parts()),
+        
     ] 
     
 );
 
-  
-module Part_Fastener(type, values)
-{
+//Handle requests
+module __Fasteners_Request_Handler(type, request, part_id, values, params, allowed_parts_list)
+{ 
     if(type[0] == "Bolt")
     {
-        Part_Bolt(type[1], values);
+        __Bolts_Request_Handler(type[1], request, part_id, values, params, allowed_parts_list);
     }
-    else if(type == "Washer")
+    /*
+    else if(type[0] == "Actuator")
     {
-        Washer(values);
+        __Actuators_Request_Handler(type[1], request, part_id, values, params, allowed_parts_list);
     }
-    else if(type[0] == "Nut")
+    */
+    else
     {
-        Part_Nut(type[1], values);
+        echo("Could not regconize fastener part type: ", type);
     }
 }
-
-//Part_Fastener(["Bolt", "Allen_Bolt"],[   3,  12, 12, 5.4,    3,  2.5,    2,  32  ]); 
-//Part_Fastener(["Bolt", "Hex_Bolt"],[   3,  25, 15, 5.4,    3,  32  ]); 
-

@@ -1,30 +1,63 @@
 include <core/Core.scad>
+include <Allen_Bolt_Parts.scad>
 
-// Data values
-//[diameter, length, thread_length, head_diameter, head_height, hex_width, hex_depthm, angular_resolution]
+module __Allen_Bolts_Request_Handler(type, request, part_id, values, params, allowed_parts_list)
+{
+    if(type != "END")
+    {
+        echo("__Allen_Bolts_Request_Handler got wrong type:", type);
+    }
+    else
+    {
+        __Allen_Bolt_Generator(values, params);
+    }
+}
 
-function Allen_Bolt_Parts() = 
-Add_Type("Allen_Bolt",
-[
-    //          ID                               Values
-    // M3
-    [   "Allen_Bolt_M3x4",  [   3,  4,  4,  5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x5",  [   3,  5,  5,  5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x6",  [   3,  6,  5,  5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x8",  [   3,  8,  8,  5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x10", [   3,  10, 10, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x12", [   3,  12, 12, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x14", [   3,  14, 14, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x16", [   3,  16, 16, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x18", [   3,  18, 18, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x20", [   3,  20, 20, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x22", [   3,  22, 22, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x25", [   3,  25, 15, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x30", [   3,  30, 15, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x35", [   3,  35, 15, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x40", [   3,  40, 15, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x45", [   3,  45, 15, 5.4,    3,  2.5,    2,  32  ]],
-    [   "Allen_Bolt_M3x50", [   3,  50, 15, 5.4,    3,  2.5,    2,  32  ]],
-    // M4
+module __Allen_Bolt_Generator(values, params)
+{
+    diameter = Get_Value("diameter", values);
+    length = Get_Value("length", values);
+    thread_length = Get_Value("thread_length", values);
+    head_diameter = Get_Value("head_diameter", values);
+    head_height = Get_Value("head_height", values);
+    hex_width = Get_Value("hex_width", values);
+    hex_depth = Get_Value("hex_depth", values);
+
+    angular_resolution = Get_Parameter("angular_resolution", 64, params);
     
-]);  
+    difference()
+    {
+        union()
+        {
+            //Non-threaded part
+            if(thread_length < length)
+            {
+                color("silver")
+                Cylinder(   diameter=diameter,
+                            height=length-thread_length,
+                            t_z="neg",
+                            angular_resolution=angular_resolution);
+            }
+            //Threaded part
+            translate([0,0,-(length-thread_length)])
+            color("grey")
+            Cylinder(   diameter=diameter,
+                        height=thread_length,
+                        t_z="neg",
+                        angular_resolution=angular_resolution);
+            //Head
+            color("silver")
+            Cylinder(   diameter=head_diameter,
+                        height=head_height,
+                        t_z="pos",
+                        angular_resolution=angular_resolution);
+        }
+        //Hex hole
+        translate([0,0,head_height-hex_depth])
+        color("silver")
+        Cylinder(   diameter=Hexagon_Diameter(hex_width),
+                    height=hex_depth+1,
+                    t_z="pos",
+                    angular_resolution=6 );
+    }
+}

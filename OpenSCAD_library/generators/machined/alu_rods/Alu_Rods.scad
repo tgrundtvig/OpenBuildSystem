@@ -1,1 +1,0 @@
-use <generators/machined/alu_rods/alu_rect_rod/Alu_Rect_Rod.scad>

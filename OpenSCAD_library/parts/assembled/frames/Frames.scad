@@ -1,21 +1,21 @@
-include <core/Core.scad>
-use <parts/assembled/frames/xyz_frames/XYZ_Frames.scad>
-use <generators/assembled/frames/xyz_frame/XYZ_Frame.scad>
-
+use <parts/Parts_Functions.scad> 
+use <xyz_frames/XYZ_Frames.scad>
 
 function Frame_Parts() = Flatten
 (
     [
-        Extend_Type("Frame", XYZ_Frame_Parts())
-    ] 
-    
+        Extend_Part_Type("Frame", XYZ_Frame_Parts())
+    ]  
 );
 
-  
-module Part_Frame(type, values)
+module  __Frames_Request_Handler(type, request, part_id, values, params, allowed_parts_list)
 {
-    if(type == "XYZ_Frame")
+    if(type[0] == "XYZ_Frame")
     {
-        XYZ_Frame(values);
+        __XYZ_Frames__Request_Handler(type[1], request, part_id, values, params, allowed_parts_list);
+    }
+    else
+    {
+        echo("Could not regconize assembled/frame part type: ", type);
     }
 }

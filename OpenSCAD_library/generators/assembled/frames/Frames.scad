@@ -1,1 +1,0 @@
-use <generators/assembled/frames/xyz_frame/XYZ_Frame.scad>

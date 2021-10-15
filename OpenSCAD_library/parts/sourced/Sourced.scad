@@ -1,24 +1,31 @@
+use <parts/Parts_Functions.scad>
 use <parts/sourced/fasteners/Fasteners.scad>
+//use <parts/sourced/actuators/Actuators.scad>
 
 function Sourced_Parts() = Flatten
 (
     [
-        Extend_Type("Sourced", Fastener_Parts()),
-        //Extend_Type("Fastener", Nuts()),
-        //Extend_Type("Fastener", Inserts())
+        Extend_Part_Type("Sourced", Fastener_Parts()),
+        //Extend_Part_Type("Sourced", Actuator_Parts())
     ] 
     
 );
 
-  
-module Part_Sourced(type, values)
-{
+//Handle requests
+module __Sourced_Request_Handler(type, request, part_id, values, params, allowed_parts_list)
+{ 
     if(type[0] == "Fastener")
     {
-        Part_Fastener(type[1], values);
+        __Fasteners_Request_Handler(type[1], request, part_id, values, params, allowed_parts_list);
+    }
+    /*
+    else if(type[0] == "Actuator")
+    {
+        __Actuators_Request_Handler(type[1], request, part_id, values, params, allowed_parts_list);
+    }
+    */
+    else
+    {
+        echo("Could not regconize sourced part type: ", type);
     }
 }
-
-//Part_Fastener(["Bolt", "Allen_Bolt"],[   3,  12, 12, 5.4,    3,  2.5,    2,  32  ]); 
-//Part_Fastener(["Bolt", "Hex_Bolt"],[   3,  25, 15, 5.4,    3,  32  ]); 
-

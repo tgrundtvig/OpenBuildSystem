@@ -1,30 +1,52 @@
 include <core/Core.scad>
+include <Hex_Bolt_Parts.scad>
 
-// Data values
-//[diameter, length, thread_length, head_diameter, head_height, angular_resolution]
+module __Hex_Bolts_Request_Handler(type, request, part_id, values, params, allowed_parts_list)
+{
+    if(type != "END")
+    {
+        echo("__Hex_Bolts_Request_Handler got wrong type:", type);
+    }
+    else
+    {
+        __Hex_Bolt_Generator(values, params);
+    }
+}
 
-function Hex_Bolt_Parts() = 
-Add_Type("Hex_Bolt",
-[
-    //          ID                               Values
-    // M3
-    [   "Hex_Bolt_M3x4",  [   3,  4,  4,  5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x5",  [   3,  5,  5,  5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x6",  [   3,  6,  5,  5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x8",  [   3,  8,  8,  5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x10", [   3,  10, 10, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x12", [   3,  12, 12, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x14", [   3,  14, 14, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x16", [   3,  16, 16, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x18", [   3,  18, 18, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x20", [   3,  20, 20, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x22", [   3,  22, 22, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x25", [   3,  25, 15, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x30", [   3,  30, 15, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x35", [   3,  35, 15, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x40", [   3,  40, 15, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x45", [   3,  45, 15, 5.4,    3,  32  ]],
-    [   "Hex_Bolt_M3x50", [   3,  50, 15, 5.4,    3,  32  ]],
-    // M4
+module __Hex_Bolt_Generator(values, params)
+{
+    diameter = Get_Value("diameter", values);
+    length = Get_Value("length", values);
+    thread_length = Get_Value("thread_length", values);
+    head_width = Get_Value("head_width", values);
+    head_height = Get_Value("head_height", values);
     
-]);  
+    angular_resolution = Get_Parameter("angular_resolution", 64, params);
+    
+    union()
+    {
+        //Non-threaded part
+        if(thread_length < length)
+        {
+            color("silver")
+            Cylinder(   diameter=diameter,
+                        height=length-thread_length,
+                        t_z="neg",
+                        angular_resolution=angular_resolution);
+        }
+        //Threaded part
+        translate([0,0,-(length-thread_length)])
+        color("grey")
+        Cylinder(   diameter=diameter,
+                    height=thread_length,
+                    t_z="neg",
+                    angular_resolution=angular_resolution);
+        
+        //Head
+        color("silver")
+        Cylinder(   diameter=Hexagon_Diameter(head_width),
+                    height=head_height,
+                    t_z="pos",
+                    angular_resolution=6);
+    }   
+}

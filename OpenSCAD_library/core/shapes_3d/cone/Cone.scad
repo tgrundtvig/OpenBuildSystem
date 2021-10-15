@@ -3,7 +3,7 @@
 //
 // A cone, wraps the build-in cylinder module, to get consistent naming
 
-Cone(bottom_diameter=20, top_diameter=10, height=10, t_x="neg");
+Cone(bottom_diameter=20, top_diameter=10, height=10, t_x="neg", t_z="pos");
 
 module Cone(bottom_diameter,
             top_diameter,
