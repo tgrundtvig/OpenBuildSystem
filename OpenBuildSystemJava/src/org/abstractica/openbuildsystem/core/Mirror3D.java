@@ -2,15 +2,29 @@ package org.abstractica.openbuildsystem.core;
 
 public class Mirror3D extends ANode3D
 {
-	private final Vector3 normal;
+	private final double normX;
+	private final double normY;
+	private final double normZ;
 
-	Mirror3D(Vector3 normal)
+	public Mirror3D(double normX, double normY, double normZ)
 	{
-		this.normal = normal;
+		this.normX = normX;
+		this.normY = normY;
+		this.normZ = normZ;
 	}
 
-	public Vector3 getNormal()
+	public double getNormX()
 	{
-		return normal;
+		return normX;
+	}
+
+	public double getNormY()
+	{
+		return normY;
+	}
+
+	public double getNormZ()
+	{
+		return normZ;
 	}
 }

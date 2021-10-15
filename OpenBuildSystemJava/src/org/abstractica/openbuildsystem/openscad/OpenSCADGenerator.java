@@ -4,8 +4,10 @@ import org.abstractica.openbuildsystem.core.*;
 import org.abstractica.openbuildsystem.core.Module;
 import org.abstractica.openbuildsystem.core.Module2D;
 import org.abstractica.openbuildsystem.core.Path2D;
+import org.abstractica.openbuildsystem.oldstuff.openscadold.OpenSCAD;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class OpenSCADGenerator
@@ -14,6 +16,7 @@ public class OpenSCADGenerator
 	{
 		Map<String, Module> usedModules = new HashMap<>();
 		generateGeometry(usedModules, res, geometry);
+		res.addLine("\n");
 		Map<String, Module> generatedModules = new HashMap<>();
 		generateModules(generatedModules, usedModules, res);
 	}
@@ -169,25 +172,25 @@ public class OpenSCADGenerator
 
 	private static void generateTranslate2D(Map<String, Module> usedModules, CodeBuilder cb, Translate2D translate2D)
 	{
-		cb.addLine("translate([" + translate2D.getX() + ", " + translate2D.getY() + "])");
+		cb.addLine("translate([" + d(translate2D.getX()) + ", " + d(translate2D.getY()) + "])");
 		generateNode2D(usedModules, cb, translate2D);
 	}
 
 	private static void generateRotate2D(Map<String, Module> usedModules, CodeBuilder cb, Rotate2D rotate2D)
 	{
-		cb.addLine("rotate([" + rotate2D.getX() + ", " + rotate2D.getY() + ", " + rotate2D.getZ() + "])");
+		cb.addLine("rotate([" + d(rotate2D.getX()) + ", " + d(rotate2D.getY()) + ", " + d(rotate2D.getZ()) + "])");
 		generateNode2D(usedModules, cb, rotate2D);
 	}
 
 	private static void generateScale2D(Map<String, Module> usedModules, CodeBuilder cb, Scale2D scale2D)
 	{
-		cb.addLine("scale([" + scale2D.getX() + ", " + scale2D.getY() + ", 1])");
+		cb.addLine("scale([" + d(scale2D.getX()) + ", " + d(scale2D.getY()) + ", 1])");
 		generateNode2D(usedModules, cb, scale2D);
 	}
 
 	private static void generateMirror2D(Map<String, Module> usedModules, CodeBuilder cb, Mirror2D mirror2D)
 	{
-		cb.addLine("mirror([" + mirror2D.getNormal().x + ", " + mirror2D.getNormal().y + ", 0])");
+		cb.addLine("mirror([" + d(mirror2D.getNormX()) + ", " + d(mirror2D.getNormY()) + ", 0])");
 		generateNode2D(usedModules, cb, mirror2D);
 	}
 
@@ -210,12 +213,12 @@ public class OpenSCADGenerator
 
 	private static void generateCircle2D(CodeBuilder cb, Circle2D circle2D)
 	{
-		cb.addLine("circle(d = " + circle2D.getDiameter() + ", $fn = " + circle2D.getAngularResolution() + ");");
+		cb.addLine("circle(d = " + d(circle2D.getDiameter()) + ", $fn = " + d(circle2D.getAngularResolution()) + ");");
 	}
 
 	private static void generateRect2D(CodeBuilder cb, Rect2D rect2D)
 	{
-		cb.addLine("square([" + rect2D.getX() + ", " + rect2D.getY() + "]);");
+		cb.addLine("square([" + d(rect2D.getX()) + ", " + d(rect2D.getY()) + "]);");
 	}
 
 	private static void generatePolygon2D(CodeBuilder cb, Polygon2D polygon2D)
@@ -233,7 +236,7 @@ public class OpenSCADGenerator
 			{
 				line.append(", ");
 			}
-			line.append("[").append(v.x).append(", ").append(v.y).append("]");
+			line.append("[").append(d(v.x)).append(", ").append(d(v.y)).append("]");
 		}
 		line.append("]");
 		if(polygon2D.getPaths() != null && polygon2D.getPaths().size() > 0)
@@ -332,6 +335,14 @@ public class OpenSCADGenerator
 		{
 			generateRotateExtrude(usedModules, cb,(RotateExtrude3D) geometry3D);
 		}
+		else if(geometry3D instanceof ColorName)
+		{
+			generateColorName(usedModules, cb,(ColorName) geometry3D);
+		}
+		else if(geometry3D instanceof ColorRGBA)
+		{
+			generateColorRGBA(usedModules, cb, (ColorRGBA) geometry3D);
+		}
 		else if(geometry3D instanceof Box3D)
 		{
 			generateBox3D(cb,(Box3D) geometry3D);
@@ -378,25 +389,25 @@ public class OpenSCADGenerator
 
 	private static void generateTranslate3D(Map<String, Module> usedModules, CodeBuilder cb, Translate3D translate3D)
 	{
-		cb.addLine("translate([" + translate3D.getX() + ", " + translate3D.getY() + ", " + translate3D.getZ() + "])");
+		cb.addLine("translate([" + d(translate3D.getX()) + ", " + d(translate3D.getY()) + ", " + d(translate3D.getZ()) + "])");
 		generateNode3D(usedModules, cb, translate3D);
 	}
 
 	private static void generateRotate3D(Map<String, Module> usedModules, CodeBuilder cb, Rotate3D rotate3D)
 	{
-		cb.addLine("rotate([" + rotate3D.getX() + ", " + rotate3D.getY() + ", " + rotate3D.getZ() + "])");
+		cb.addLine("rotate([" + d(rotate3D.getX()) + ", " + d(rotate3D.getY()) + ", " + d(rotate3D.getZ()) + "])");
 		generateNode3D(usedModules, cb, rotate3D);
 	}
 
 	private static void generateScale3D(Map<String, Module> usedModules, CodeBuilder cb, Scale3D scale3D)
 	{
-		cb.addLine("scale([" + scale3D.getX() + ", " + scale3D.getY() + ", "+ scale3D.getZ() + "])");
+		cb.addLine("scale([" + d(scale3D.getX()) + ", " + d(scale3D.getY()) + ", "+ d(scale3D.getZ()) + "])");
 		generateNode3D(usedModules, cb, scale3D);
 	}
 
 	private static void generateMirror3D(Map<String, Module> usedModules, CodeBuilder cb, Mirror3D mirror3D)
 	{
-		cb.addLine("mirror([" + mirror3D.getNormal().x + ", " + mirror3D.getNormal().y + ", " + mirror3D.getNormal().z + "])");
+		cb.addLine("mirror([" + d(mirror3D.getNormX()) + ", " + d(mirror3D.getNormY()) + ", " + d(mirror3D.getNormZ()) + "])");
 		generateNode3D(usedModules, cb, mirror3D);
 	}
 
@@ -404,11 +415,11 @@ public class OpenSCADGenerator
 	{
 		StringBuilder line = new StringBuilder();
 		line.append("linear_extrude(height = ");
-		line.append(linearExtrude3D.getHeight());
+		line.append(d(linearExtrude3D.getHeight()));
 		line.append(", twist = ");
-		line.append(linearExtrude3D.getTwist());
+		line.append(d(linearExtrude3D.getTwist()));
 		line.append(", scale = ");
-		line.append(linearExtrude3D.getScale());
+		line.append(d(linearExtrude3D.getScale()));
 		line.append(", slices = ");
 		line.append(linearExtrude3D.getSlices());
 		line.append(", convexity = ");
@@ -426,7 +437,7 @@ public class OpenSCADGenerator
 	{
 		StringBuilder line = new StringBuilder();
 		line.append("rotate_extrude(angle = ");
-		line.append(rotateExtrude3D.getAngle());
+		line.append(d(rotateExtrude3D.getAngle()));
 		line.append(", convexity = ");
 		line.append(rotateExtrude3D.getConvexity());
 		line.append(", $fn = ");
@@ -440,23 +451,38 @@ public class OpenSCADGenerator
 		cb.addLine("}");
 	}
 
+	private static void generateColorName(Map<String, Module> usedModules, CodeBuilder cb, ColorName colorName)
+	{
+		cb.addLine("color(\"" + colorName.getColorName() + "\")");
+		generateNode3D(usedModules, cb, colorName);
+	}
+
+	private static void generateColorRGBA(Map<String, Module> usedModules, CodeBuilder cb, ColorRGBA colorRGBA)
+	{
+		cb.addLine("color([" + (colorRGBA.getR() / 255.0)  + ", " +
+				(colorRGBA.getG() / 255.0)+ ", " +
+				(colorRGBA.getB() / 255.0) + "], " +
+				(colorRGBA.getA() / 255.0) + ")");
+		generateNode3D(usedModules, cb, colorRGBA);
+	}
+
 	private static void generateBox3D(CodeBuilder cb, Box3D box3D)
 	{
-		cb.addLine("cube([" + box3D.getX() + ", " + box3D.getY() + ", " + box3D.getZ() + "]);");
+		cb.addLine("cube([" + d(box3D.getX()) + ", " + d(box3D.getY()) + ", " + d(box3D.getZ()) + "]);");
 	}
 
 	private static void generateCylinder3D(CodeBuilder cb, Cylinder3D cylinder3D)
 	{
-		cb.addLine("cylinder(d = " + cylinder3D.getDiameter() +
-				", h = " + cylinder3D.getHeight() +
+		cb.addLine("cylinder(d = " + d(cylinder3D.getDiameter()) +
+				", h = " + d(cylinder3D.getHeight()) +
 				", $fn = " + cylinder3D.getAngularResolution() + ");");
 	}
 
 	private static void generateCone3D(CodeBuilder cb, Cone3D cone3D)
 	{
-		cb.addLine("cylinder(d1 = " + cone3D.getBottomDiameter() +
-				", d2 = " + cone3D.getTopDiameter() +
-				", h = " + cone3D.getHeight() +
+		cb.addLine("cylinder(d1 = " + d(cone3D.getBottomDiameter()) +
+				", d2 = " + d(cone3D.getTopDiameter()) +
+				", h = " + d(cone3D.getHeight()) +
 				", $fn = " + cone3D.getAngularResolution() + ");");
 	}
 
@@ -469,6 +495,11 @@ public class OpenSCADGenerator
 			generateGeometry3D(usedModules, cb, geometry3D);
 		}
 		cb.undent();
-		cb.addLine("}\n");
+		cb.addLine("}");
+	}
+
+	private static String d(double d)
+	{
+		return String.format(Locale.ENGLISH,"%.4f", d);
 	}
 }

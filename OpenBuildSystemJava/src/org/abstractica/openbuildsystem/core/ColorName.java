@@ -2,11 +2,16 @@ package org.abstractica.openbuildsystem.core;
 
 public class ColorName extends ANode3D
 {
-	private final String name;
+	private final String colorName;
 
-	ColorName(String name)
+	ColorName(String colorName)
 	{
 		super();
-		this.name = name;
+		this.colorName = colorName;
+	}
+
+	public String getColorName()
+	{
+		return colorName;
 	}
 }

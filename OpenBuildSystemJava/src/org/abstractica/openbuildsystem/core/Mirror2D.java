@@ -2,15 +2,22 @@ package org.abstractica.openbuildsystem.core;
 
 public class Mirror2D extends ANode2D
 {
-	private final Vector2 normal;
+	private final double normX;
+	private final double normY;
 
-	Mirror2D(Vector2 normal)
+	public Mirror2D(double normX, double normY)
 	{
-		this.normal = normal;
+		this.normX = normX;
+		this.normY = normY;
 	}
 
-	public Vector2 getNormal()
+	public double getNormX()
 	{
-		return normal;
+		return normX;
+	}
+
+	public double getNormY()
+	{
+		return normY;
 	}
 }

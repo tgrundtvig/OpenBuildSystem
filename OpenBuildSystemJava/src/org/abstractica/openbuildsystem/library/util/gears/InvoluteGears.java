@@ -11,34 +11,34 @@ public class InvoluteGears
 
 	public static Geometry2D rack2D(GearData gearData, double pitchHeight, double fitting)
 	{
-		double height = 2* gearData.module;
+		double height = 2 * gearData.module;
 		double slopeWidth = Math.tan(gearData.pressureAngle) * height;
 		double topBottomWidth = (gearData.pitch - 2 * slopeWidth) * 0.5;
 		List<Vector2> points = new ArrayList<>();
-		double x = -(slopeWidth+0.5*topBottomWidth);
+		double x = -(slopeWidth + 0.5 * topBottomWidth);
 		double y = -pitchHeight;
 		points.add(new Vector2(x, y));
 		y += pitchHeight - gearData.module;
 		points.add(new Vector2(x, y));
 		x += slopeWidth;
-		y += 2.0*gearData.module;
+		y += 2.0 * gearData.module;
 		points.add(new Vector2(x, y));
 		x += topBottomWidth;
 		points.add(new Vector2(x, y));
 		x += slopeWidth;
-		y -= 2.0*gearData.module;
+		y -= 2.0 * gearData.module;
 		points.add(new Vector2(x, y));
-		for(int i = 1; i < gearData.numberOfTeeth;++i)
+		for (int i = 1; i < gearData.numberOfTeeth; ++i)
 		{
 			x += topBottomWidth;
 			points.add(new Vector2(x, y));
 			x += slopeWidth;
-			y += 2.0*gearData.module;
+			y += 2.0 * gearData.module;
 			points.add(new Vector2(x, y));
 			x += topBottomWidth;
 			points.add(new Vector2(x, y));
 			x += slopeWidth;
-			y -= 2.0*gearData.module;
+			y -= 2.0 * gearData.module;
 			points.add(new Vector2(x, y));
 		}
 		y -= pitchHeight - gearData.module;
@@ -57,7 +57,7 @@ public class InvoluteGears
 		Node2D union = Core.union2D();
 		InvoluteTooth tooth = involuteTooth2D(gearData, fitting);
 		List<Vector2> center = new ArrayList<>();
-		for(int i = 0; i < gearData.numberOfTeeth; ++i)
+		for (int i = 0; i < gearData.numberOfTeeth; ++i)
 		{
 			Vector2 nextRight = rotate(tooth.connectionPointRight, i * gearData.pitchAngle);
 			Vector2 nextLeft = rotate(tooth.connectionPointLeft, i * gearData.pitchAngle);
@@ -69,7 +69,7 @@ public class InvoluteGears
 		}
 		Geometry2D centerGeometry = Core.polygon2D(center);
 		union.add(centerGeometry);
-		return union;
+		return Core.module2D("InvoluteGear2D" + gearData.getStringID(), union);
 	}
 
 	public static InvoluteTooth involuteTooth2D(GearData gearData, double fitting)
@@ -79,12 +79,12 @@ public class InvoluteGears
 		//Find closest to origo
 		double minSqrDist = Double.MAX_VALUE;
 		Vector2 minPoint = null;
-		for(Vector2 point : cutoutPoints)
+		for (Vector2 point : cutoutPoints)
 		{
 			double x = point.x;
 			double y = point.y;
-			double sqrDist = x*x+y*y;
-			if(sqrDist < minSqrDist)
+			double sqrDist = x * x + y * y;
+			if (sqrDist < minSqrDist)
 			{
 				minSqrDist = sqrDist;
 				minPoint = point;
@@ -95,18 +95,18 @@ public class InvoluteGears
 		//Involute
 		List<Vector2> polarPoints = new ArrayList<>();
 		int involuteSteps = 32;
-		double maxRollOffAngle = Math.acos(gearData.baseRadius/(gearData.tipRadius-fitting));//-2*fitting
+		double maxRollOffAngle = Math.acos(gearData.baseRadius / (gearData.tipRadius - fitting));//-2*fitting
 		double stepSize = maxRollOffAngle / involuteSteps;
 		Vector2 last = null;
-		for(int i = 0; i <= involuteSteps; ++i)
+		for (int i = 0; i <= involuteSteps; ++i)
 		{
-			if(last == null)
+			if (last == null)
 			{
-				last = new Vector2(0,0);
+				last = new Vector2(0, 0);
 			}
-			Vector2 ci = circleInvolute(last, gearData.baseRadius, i*stepSize, fitting);
-			Vector2 polar = new Vector2(ci.x, ci.y - gearData.baseToothAngle *0.5); //+fittingAngle
-			if(polar.x < minDist)
+			Vector2 ci = circleInvolute(last, gearData.baseRadius, i * stepSize, fitting);
+			Vector2 polar = new Vector2(ci.x, ci.y - gearData.baseToothAngle * 0.5); //+fittingAngle
+			if (polar.x < minDist)
 			{
 				minDist = polar.x;
 				polarMinPoint = polar;
@@ -117,27 +117,26 @@ public class InvoluteGears
 
 
 		List<Vector2> halfToothPoints = new ArrayList<>();
-		halfToothPoints.add(new Vector2(0,0));
+		halfToothPoints.add(new Vector2(0, 0));
 		Vector2 polarRight = polarMinPoint;
 		Vector2 polarLeft = new Vector2(polarRight.x, -polarRight.y);
 		halfToothPoints.add(polarToCartesian(polarMinPoint));
-		for(Vector2 polar : polarPoints)
+		for (Vector2 polar : polarPoints)
 		{
 			halfToothPoints.add(polarToCartesian(polar.x, polar.y));
 		}
-		halfToothPoints.add(new Vector2(gearData.tipRadius - 2*fitting, 0));
+		halfToothPoints.add(new Vector2(gearData.tipRadius - 2 * fitting, 0));
 		Geometry2D halfTooth = Core.polygon2D(halfToothPoints);
 		Node2D diff = Core.difference2D();
 		diff.add(halfTooth);
 		diff.add(Core.polygon2D(cutoutPoints));
-		Node2D mirror = Core.mirror2D(0,1);
+		Node2D mirror = Core.mirror2D(0, 1);
 		mirror.add(diff);
 		Node2D union = Core.union2D();
 		union.add(mirror);
 		union.add(diff);
-		Geometry2D tooth = Core.module2D("Tooth", union);
-		InvoluteTooth res = new InvoluteTooth(tooth, polarToCartesian(polarRight), polarToCartesian(polarLeft));
-		return res;
+		Geometry2D tooth = Core.module2D("Tooth" + gearData.getStringID(), union);
+		return new InvoluteTooth(tooth, polarToCartesian(polarRight), polarToCartesian(polarLeft));
 	}
 
 	public static List<Vector2> cutout(GearData gearData, double fitting)
@@ -146,7 +145,7 @@ public class InvoluteGears
 		List<Vector2> points = new ArrayList<>();
 		int steps = 64;
 		Vector2 lastPoint = cornerPath(0.0, gearData, fitting);
-		for(int i = 1; i <= steps; ++i)
+		for (int i = 1; i <= steps; ++i)
 		{
 			double t = i * (3.0 / steps);
 			double rotAngle = -t * gearData.pitchAngle;
@@ -161,11 +160,12 @@ public class InvoluteGears
 	{
 		double slopeWidth = Math.tan(gearData.pressureAngle) * 2 * gearData.module;
 		double topBottomWidth = (gearData.pitch - 2 * slopeWidth) * 0.5;
-		double x = gearData.pitchRadius - gearData.module - 2*fitting;
+		double x = gearData.pitchRadius - gearData.module - 2 * fitting;
 		double y = t * gearData.pitch - (slopeWidth + 0.5 * topBottomWidth) + fitting;
-		return new Vector2(x,y);
+		return new Vector2(x, y);
 
 	}
+
 	//    Circle involute function:
 	//    Returns the polar coordinates of an involute of a circle
 	//    r = radius of the base circle
@@ -200,8 +200,8 @@ public class InvoluteGears
 
 	private static Vector2 cartesianToPolar(double x, double y)
 	{
-		double r = Math.sqrt(x*x + y*y);
-		double angle = Math.atan(y/x);
+		double r = Math.sqrt(x * x + y * y);
+		double angle = Math.atan(y / x);
 		return new Vector2(r, angle);
 	}
 
@@ -222,6 +222,6 @@ public class InvoluteGears
 	private static Vector2 normalized(Vector2 v)
 	{
 		double f = 1.0 / v.length();
-		return new Vector2(f*v.x, f*v.y);
+		return new Vector2(f * v.x, f * v.y);
 	}
 }

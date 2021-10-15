@@ -1,195 +1,194 @@
 package org.abstractica.openbuildsystem.library.parts.sourced.fasteners.bolts.allenbolts;
 
-import org.abstractica.openbuildsystem.oldstuff.Core;
-import org.abstractica.openbuildsystem.oldstuff.Geometry3D;
-import org.abstractica.openbuildsystem.oldstuff.Group3D;
+import org.abstractica.openbuildsystem.core.Core;
+import org.abstractica.openbuildsystem.core.Geometry3D;
+import org.abstractica.openbuildsystem.core.Node3D;
 import org.abstractica.openbuildsystem.library.util.math.HexMath;
 
 public class AllenBolts
 {
-	public static Geometry3D M3x4(Core c)
+	public static Geometry3D M3x4()
 	{
-		return allenBolt(c, 3.0, 4.0, 4.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x4", 3.0, 4.0, 4.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x5(Core c)
+	public static Geometry3D M3x5()
 	{
-		return allenBolt(c, 3.0, 5.0, 5.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x5", 3.0, 5.0, 5.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x6(Core c)
+	public static Geometry3D M3x6()
 	{
-		return allenBolt(c, 3.0, 6.0, 6.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x6", 3.0, 6.0, 6.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x8(Core c)
+	public static Geometry3D M3x8()
 	{
-		return allenBolt(c, 3.0, 8.0, 8.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x8", 3.0, 8.0, 8.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x10(Core c)
+	public static Geometry3D M3x10()
 	{
-		return allenBolt(c, 3.0, 10.0, 10.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x10", 3.0, 10.0, 10.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x12(Core c)
+	public static Geometry3D M3x12()
 	{
-		return allenBolt(c, 3.0, 12.0, 12.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x12", 3.0, 12.0, 12.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x14(Core c)
+	public static Geometry3D M3x14()
 	{
-		return allenBolt(c, 3.0, 14.0, 14.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x14", 3.0, 14.0, 14.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x16(Core c)
+	public static Geometry3D M3x16()
 	{
-		return allenBolt(c, 3.0, 16.0, 16.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x16", 3.0, 16.0, 16.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x18(Core c)
+	public static Geometry3D M3x18()
 	{
-		return allenBolt(c, 3.0, 18.0, 18.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x18", 3.0, 18.0, 18.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x20(Core c)
+	public static Geometry3D M3x20()
 	{
-		return allenBolt(c, 3.0, 20.0, 20.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x20", 3.0, 20.0, 20.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x22(Core c)
+	public static Geometry3D M3x22()
 	{
-		return allenBolt(c, 3.0, 22.0, 22.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x22", 3.0, 22.0, 22.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x25(Core c)
+	public static Geometry3D M3x25()
 	{
-		return allenBolt(c, 3.0, 25.0, 25.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x25", 3.0, 25.0, 20.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x30(Core c)
+	public static Geometry3D M3x30()
 	{
-		return allenBolt(c, 3.0, 30.0, 30.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x30", 3.0, 30.0, 30.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x35(Core c)
+	public static Geometry3D M3x35()
 	{
-		return allenBolt(c, 3.0, 35.0, 35.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x35", 3.0, 35.0, 20.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x40(Core c)
+	public static Geometry3D M3x40()
 	{
-		return allenBolt(c, 3.0, 40.0, 40.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x40", 3.0, 40.0, 20.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x45(Core c)
+	public static Geometry3D M3x45()
 	{
-		return allenBolt(c, 3.0, 45.0, 45.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x45", 3.0, 45.0, 20.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x50(Core c)
+	public static Geometry3D M3x50()
 	{
-		return allenBolt(c, 3.0, 50.0, 50.0, 5.4, 3.0,2.5, 1.5);
+		return allenBolt("M3x50", 3.0, 50.0, 20.0, 5.4, 3.0, 2.5, 1.5);
 	}
 
-	public static Geometry3D M3x4_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x4_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 4.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x4", 3.0, 4.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x5_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x5_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 5.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x5", 3.0, 5.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x6_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x6_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 6.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x6", 3.0, 6.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x8_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x8_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 8.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x8", 3.0, 8.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x10_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x10_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 10.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x10", 3.0, 10.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x12_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x12_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 12.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x12", 3.0, 12.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x14_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x14_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 14.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x14", 3.0, 14.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x16_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x16_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 16.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x16", 3.0, 16.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x18_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x18_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 18.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x18", 3.0, 18.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x20_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x20_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 20.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x20", 3.0, 20.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x22_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x22_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 22.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x22", 3.0, 22.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x25_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x25_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 25.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x25", 3.0, 25.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x30_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x30_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 30.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x30", 3.0, 30.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x35_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x35_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 35.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x35", 3.0, 35.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x40_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x40_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 40.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x40", 3.0, 40.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x45_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x45_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 45.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x45", 3.0, 45.0, 5.4, 3, fitting, fixOverhang);
 	}
 
-	public static Geometry3D M3x50_Cutout(Core c, double fitting, boolean fixOverhang)
+	public static Geometry3D M3x50_Cutout(double fitting, boolean fixOverhang)
 	{
-		return allenBoltCutout(c, 3.0, 50.0, 5.4, 3, fitting, fixOverhang);
+		return allenBoltCutout("M3x50", 3.0, 50.0, 5.4, 3, fitting, fixOverhang);
 
 	}
 
 
-
-	private static Geometry3D allenBolt(Core c, double diameter, double length, double threadLength, double headDiameter, double headHeight, double holeWidth, double holeDepth)
+	private static Geometry3D allenBolt(String sizeName, double diameter, double length, double threadLength, double headDiameter, double headHeight, double holeWidth, double holeDepth)
 	{
-		Group3D res = c.union3D();
+		Node3D res = Core.union3D();
 		//Head
-		Group3D headColor = c.color("silver");
-		Group3D headTranslate = c.translate3D(0, 0, -headHeight);
-		Group3D head = c.difference3D();
-		Geometry3D headCyl = c.cylinder3D(headDiameter, headHeight, 32);
-		Geometry3D hole = c.cylinder3D(HexMath.hexagon_Diameter(holeWidth), holeDepth + 1, 6);
-		Group3D holeTranslate = c.translate3D(0, 0, -1);
+		Node3D headColor = Core.color("silver");
+		Node3D headTranslate = Core.translate3D(0, 0, -headHeight);
+		Node3D head = Core.difference3D();
+		Geometry3D headCyl = Core.cylinder3D(headDiameter, headHeight, 32);
+		Geometry3D hole = Core.cylinder3D(HexMath.hexagon_Diameter(holeWidth), holeDepth + 1, 6);
+		Node3D holeTranslate = Core.translate3D(0, 0, -1);
 		holeTranslate.add(hole);
 		head.add(headCyl);
 		head.add(holeTranslate);
@@ -200,22 +199,22 @@ public class AllenBolts
 		//Non threaded part
 		if (length > threadLength)
 		{
-			Geometry3D nonThreaded = c.cylinder3D(diameter, length - threadLength, 32);
-			Group3D nonThreadedColor = c.color("silver");
+			Geometry3D nonThreaded = Core.cylinder3D(diameter, length - threadLength, 32);
+			Node3D nonThreadedColor = Core.color("silver");
 			nonThreadedColor.add(nonThreaded);
 			res.add(nonThreadedColor);
 		}
 		//Threaded part
-		Group3D threadedTranslate = c.translate3D(0, 0, length - threadLength);
-		Geometry3D threaded = c.cylinder3D(diameter, threadLength, 32);
-		Group3D threadedColor = c.color("grey");
+		Node3D threadedTranslate = Core.translate3D(0, 0, length - threadLength);
+		Geometry3D threaded = Core.cylinder3D(diameter, threadLength, 32);
+		Node3D threadedColor = Core.color("grey");
 		threadedColor.add(threaded);
 		threadedTranslate.add(threadedColor);
 		res.add(threadedTranslate);
-		return res;
+		return Core.module3D("AllenBolt_" + sizeName, res);
 	}
 
-	private static Geometry3D allenBoltCutout(Core c,
+	private static Geometry3D allenBoltCutout(String sizeName,
 	                                          double diameter,
 	                                          double length,
 	                                          double headDiameter,
@@ -223,29 +222,29 @@ public class AllenBolts
 	                                          double fitting,
 	                                          boolean fixOverhang)
 	{
-		Group3D res = c.union3D();
+		Node3D res = Core.union3D();
 		//Head
-		Group3D headTranslate = c.translate3D(0, 0, -headHeight - fitting);
-		Geometry3D head = c.cylinder3D(headDiameter + 2 * fitting, headHeight + 2 * fitting, 64);
+		Node3D headTranslate = Core.translate3D(0, 0, -headHeight - fitting);
+		Geometry3D head = Core.cylinder3D(headDiameter + 2 * fitting, headHeight + 2 * fitting, 64);
 		headTranslate.add(head);
 
 		//Body
-		Geometry3D body = c.cylinder3D(diameter + 2 * fitting, length + fitting, 64);
+		Geometry3D body = Core.cylinder3D(diameter + 2 * fitting, length + fitting, 64);
 		res.add(body);
 
 		//fix overhang
 		if (fixOverhang)
 		{
-			Group3D hull = c.hull3D();
+			Node3D hull = Core.hull3D();
 			hull.add(headTranslate);
 			double height = 0.5 * (headDiameter - diameter);
-			Geometry3D cyl = c.cylinder3D(diameter + 2 * fitting, height, 64);
+			Geometry3D cyl = Core.cylinder3D(diameter + 2 * fitting, height, 64);
 			hull.add(cyl);
 			res.add(hull);
 		} else
 		{
 			res.add(headTranslate);
 		}
-		return res;
+		return Core.module3D("AllenBolt_" + sizeName + "_Cutout", res);
 	}
 }

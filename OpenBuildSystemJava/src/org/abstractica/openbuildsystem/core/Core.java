@@ -78,12 +78,12 @@ public class Core
 
 	public static Node2D mirror2D(Vector2 vector)
 	{
-		return new Mirror2D(vector);
+		return new Mirror2D(vector.x, vector.y);
 	}
 
 	public static Node2D mirror2D(double x, double y)
 	{
-		return new Mirror2D(new Vector2(x,y));
+		return new Mirror2D(x,y);
 	}
 
 	public static Node2D union2D()
@@ -123,27 +123,27 @@ public class Core
 
 	public static Geometry3D box3D(double sizeX, double sizeY, double sizeZ)
 	{
-		return box3D(sizeX, sizeY, sizeZ);
+		return new Box3D(sizeX, sizeY, sizeZ);
 	}
 
 	public static Node3D translate3D(double x, double y, double z)
 	{
-		return translate3D(x,y,z);
+		return new Translate3D(x,y,z);
 	}
 
 	public static Node3D rotate3D(double x, double y, double z)
 	{
-		return rotate3D(x,y,z);
+		return new Rotate3D(x,y,z);
 	}
 
 	public static Node3D scale3D(double x, double y, double z)
 	{
-		return scale3D(x,y,z);
+		return new Scale3D(x,y,z);
 	}
 
 	public static Node3D mirror3D(double x, double y, double z)
 	{
-		return mirror3D(x,y,z);
+		return new Mirror3D(x,y,z);
 	}
 
 	public static Node3D union3D()

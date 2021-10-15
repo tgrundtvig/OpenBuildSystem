@@ -1,7 +1,5 @@
 package org.abstractica.openbuildsystem.core;
 
-import org.abstractica.openbuildsystem.oldstuff.Geometry3D;
-
 public class Box3D implements Geometry3D
 {
 	private final double x;
