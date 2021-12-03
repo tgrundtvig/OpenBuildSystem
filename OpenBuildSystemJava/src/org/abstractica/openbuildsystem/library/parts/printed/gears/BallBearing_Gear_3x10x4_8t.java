@@ -1,30 +1,31 @@
 package org.abstractica.openbuildsystem.library.parts.printed.gears;
 
-import org.abstractica.openbuildsystem.oldstuff.Core;
-import org.abstractica.openbuildsystem.oldstuff.Geometry3D;
-import org.abstractica.openbuildsystem.oldstuff.Group3D;
-import org.abstractica.openbuildsystem.oldstuff.gearsold.GearData;
-import org.abstractica.openbuildsystem.oldstuff.gearsold.InvoluteGears;
+
+import org.abstractica.openbuildsystem.core.Core;
+import org.abstractica.openbuildsystem.core.Geometry3D;
+import org.abstractica.openbuildsystem.core.Node3D;
+import org.abstractica.openbuildsystem.library.util.gears.GearData;
+import org.abstractica.openbuildsystem.library.util.gears.InvoluteGears;
 
 public class BallBearing_Gear_3x10x4_8t
 {
 	private final Geometry3D geometry3D;
 
-	public BallBearing_Gear_3x10x4_8t(Core c)
+	public BallBearing_Gear_3x10x4_8t()
 	{
 		GearData gearData8 = new GearData(8, 20, 16, Math.toRadians(20),  Math.toRadians(0));
 
 
 		//Gear24
-		Geometry3D gear8 = InvoluteGears.involuteGear3D(c, gearData8, 8,0.1);
+		Geometry3D gear8 = InvoluteGears.involuteGear3D(gearData8, 8,0.1);
 
 		//AxelHole
-		Group3D holeTranslate = c.translate3D(0,0,-1);
-		Geometry3D axelHole = c.cylinder3D(10.2, 10, 64);
+		Node3D holeTranslate = Core.translate3D(0,0,-1);
+		Geometry3D axelHole = Core.cylinder3D(10.2, 10, 64);
 		holeTranslate.add(axelHole);
 
 		//Result
-		Group3D res = c.difference3D();
+		Node3D res = Core.difference3D();
 		res.add(gear8);
 		res.add(holeTranslate);
 
