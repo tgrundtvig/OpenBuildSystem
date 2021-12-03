@@ -2,9 +2,6 @@ package org.abstractica.openbuildsystem.openscad;
 
 import org.abstractica.openbuildsystem.core.*;
 import org.abstractica.openbuildsystem.core.Module;
-import org.abstractica.openbuildsystem.core.Module2D;
-import org.abstractica.openbuildsystem.core.Path2D;
-import org.abstractica.openbuildsystem.oldstuff.openscadold.OpenSCAD;
 
 import java.util.HashMap;
 import java.util.Locale;

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Core
 {
-	public static Geometry2D module2D(String name, Geometry2D geometry2D)
+	public static Module2D module2D(String name, Geometry2D geometry2D)
 	{
 		return new Module2D(name, geometry2D);
 	}
 
-	public static Geometry3D module3D(String name, Geometry3D geometry3D)
+	public static Module3D module3D(String name, Geometry3D geometry3D)
 	{
 		return new Module3D(name, geometry3D);
 	}
